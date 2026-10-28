@@ -1,0 +1,25 @@
+# Secrets : ne JAMAIS les enregistrer
+.env
+*.pem
+*.key
+
+# Java
+target/
+build/
+*.class
+
+# Éditeurs
+.idea/
+.vscode/
+
+# Node (front-end)
+node_modules/
+dist/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Windows
+Thumbs.db

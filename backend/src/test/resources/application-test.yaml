@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/unused
+    username: unused
+    password: unused
+
+app:
+  security:
+    jwt:
+      secret: secret-de-test-uniquement-pas-pour-la-production-0123456789
+      expiration-minutes: 5

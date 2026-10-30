@@ -18,4 +18,6 @@ public interface CustomerRepository extends JpaRepository<Customer, UUID> {
     Optional<Customer> findByOrganizationIdAndExternalId(UUID organizationId, String externalId);
 
     long countByOrganizationId(UUID organizationId);
+
+    Optional<Customer> findByIdAndOrganizationId(UUID id, UUID organizationId);
 }

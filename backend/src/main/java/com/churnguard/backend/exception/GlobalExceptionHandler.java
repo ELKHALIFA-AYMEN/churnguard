@@ -31,4 +31,12 @@ public class GlobalExceptionHandler {
         problem.setTitle("Invalid import file");
         return problem;
     }
+
+    @ExceptionHandler(CustomerNotFoundException.class)
+    public ProblemDetail handleCustomerNotFound(CustomerNotFoundException ex) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(
+                HttpStatus.NOT_FOUND, "Customer not found");
+        problem.setTitle("Not found");
+        return problem;
+    }
 }

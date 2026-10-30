@@ -154,4 +154,23 @@ public class Customer {
     public OffsetDateTime getCreatedAt() {
         return createdAt;
     }
+
+    public void copyValuesFrom(Customer other) {
+        this.tenureMonths = other.tenureMonths;
+        this.phoneService = other.phoneService;
+        this.multipleLines = other.multipleLines;
+        this.internetService = other.internetService;
+        this.onlineSecurity = other.onlineSecurity;
+        this.onlineBackup = other.onlineBackup;
+        this.deviceProtection = other.deviceProtection;
+        this.techSupport = other.techSupport;
+        this.streamingTv = other.streamingTv;
+        this.streamingMovies = other.streamingMovies;
+        this.contract = other.contract;
+        this.paperlessBilling = other.paperlessBilling;
+        this.paymentMethod = other.paymentMethod;
+        this.monthlyCharges = other.monthlyCharges;
+        this.totalCharges = other.totalCharges;
+        this.churned = other.churned;
+    }
 }

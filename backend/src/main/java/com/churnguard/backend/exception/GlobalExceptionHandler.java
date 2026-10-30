@@ -23,4 +23,12 @@ public class GlobalExceptionHandler {
         problem.setTitle("Unauthorized");
         return problem;
     }
+
+    @ExceptionHandler(InvalidImportFileException.class)
+    public ProblemDetail handleInvalidImportFile(InvalidImportFileException ex) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(
+                HttpStatus.BAD_REQUEST, ex.getMessage());
+        problem.setTitle("Invalid import file");
+        return problem;
+    }
 }

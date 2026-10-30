@@ -23,3 +23,8 @@ __pycache__/
 
 # Windows
 Thumbs.db
+
+# Données brutes et modèles entraînés (volumineux, licence propre)
+data/raw/
+*.pkl
+*.joblib

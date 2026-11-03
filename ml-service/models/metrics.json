@@ -1,0 +1,11 @@
+{
+  "seuil": 0.2,
+  "auc": 0.841,
+  "auc_pr": 0.634,
+  "rappel": 0.85,
+  "precision": 0.468,
+  "clients_contactes_pct": 48.3,
+  "gain_modele_pour_1000": 15018,
+  "gain_contacter_tout_le_monde_pour_1000": 6852,
+  "gain_ne_rien_faire_pour_1000": 0
+}

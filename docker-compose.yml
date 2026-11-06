@@ -16,5 +16,28 @@ services:
       timeout: 5s
       retries: 5
 
+  ml-service:
+    build: ./ml-service
+    container_name: churnguard-ml
+    environment:
+      ML_API_TOKEN: ${ML_API_TOKEN:?ML_API_TOKEN is required}
+      MODEL_PATH: /models/churn_model.joblib
+    volumes:
+      - ./ml-service/models:/models:ro
+    ports:
+      - "127.0.0.1:8000:8000"
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
 volumes:
   postgres_data:

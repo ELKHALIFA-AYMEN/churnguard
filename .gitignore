@@ -28,3 +28,6 @@ Thumbs.db
 data/raw/
 *.pkl
 *.joblib
+
+# Caches de tests
+.pytest_cache/

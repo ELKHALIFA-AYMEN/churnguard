@@ -60,9 +60,11 @@ public class LoginRateLimitFilter extends OncePerRequestFilter {
         if (secondsToWait > 0) {
             response.setStatus(429);
             response.setHeader("Retry-After", String.valueOf(secondsToWait));
-            response.setContentType("application/json");
+            response.setContentType("application/problem+json");
             response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-            response.getWriter().write("{\"message\":\"Trop de tentatives. Réessayez plus tard.\"}");
+            response.getWriter().write(
+                    "{\"title\":\"Too Many Requests\",\"status\":429,"
+                            + "\"detail\":\"Trop de tentatives. Réessayez plus tard.\"}");
             return;
         }
         chain.doFilter(request, response);

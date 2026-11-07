@@ -9,6 +9,7 @@ function errorMessage(error: unknown): string {
     if (error.status === 401) return 'Identifiant ou mot de passe incorrect.'
     if (error.status === 0) return 'Serveur injoignable. Réessayez dans un instant.'
     if (error.status === 400) return 'Veuillez vérifier les champs saisis.'
+        if (error.status === 429) return 'Trop de tentatives. Patientez une minute avant de réessayer.'
   }
   return 'Connexion impossible. Réessayez plus tard.'
 }

@@ -39,6 +39,8 @@ class LoginRateLimitFilterTest {
         assertThat(blocked.getStatus()).isEqualTo(429);
         assertThat(blocked.getHeader("Retry-After")).isNotNull();
         assertThat(Long.parseLong(blocked.getHeader("Retry-After"))).isBetween(1L, 61L);
+        assertThat(blocked.getContentAsString(java.nio.charset.StandardCharsets.UTF_8))
+                .contains("\"detail\"");
     }
 
     @Test

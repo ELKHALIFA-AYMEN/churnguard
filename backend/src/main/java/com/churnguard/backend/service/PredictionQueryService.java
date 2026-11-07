@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.ObjectMapper;
+import java.util.Optional;
 
 import java.util.List;
 import java.util.UUID;
@@ -57,7 +58,11 @@ public class PredictionQueryService {
                 .map(this::toResponse)
                 .orElseThrow(CustomerNotFoundException::new);
     }
-
+    @Transactional(readOnly = true)
+    public Optional<PredictionResponse> findForCustomer(UUID organizationId, UUID customerId) {
+        return predictionRepository.findByCustomerIdAndOrganizationId(customerId, organizationId)
+                .map(this::toResponse);
+    }
     private PredictionResponse toResponse(Prediction prediction) {
         Customer customer = prediction.getCustomer();
         List<PredictionResponse.Factor> factors = objectMapper.readValue(

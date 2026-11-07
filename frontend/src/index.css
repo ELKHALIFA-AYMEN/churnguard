@@ -49,3 +49,21 @@ button.secondary { margin: 0 0 0 auto; padding: 0.4rem 0.8rem; font-size: 0.9rem
 
 .topbar { display: flex; align-items: center; gap: 1rem; padding: 0.75rem 1.5rem; background: var(--card); border-bottom: 1px solid var(--border); }
 .page { max-width: 1100px; margin: 0 auto; padding: 1.5rem; }
+.nav { display: flex; gap: 0.25rem; margin-left: 1rem; }
+.nav a { padding: 0.35rem 0.8rem; border-radius: 6px; color: var(--muted); text-decoration: none; font-weight: 600; }
+.nav a:hover { color: var(--text); }
+.nav a.active { color: var(--text); background: var(--bg); }
+
+.panel { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem 1.5rem; margin-top: 1.25rem; }
+.panel h2 { margin: 0 0 0.25rem; font-size: 1.15rem; }
+.panel h3 { margin: 1.25rem 0 0.5rem; font-size: 1rem; }
+.panel form { display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+
+.report { margin-top: 1rem; }
+.stats { display: flex; flex-wrap: wrap; gap: 1rem; }
+.stat { display: flex; flex-direction: column; min-width: 120px; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 8px; }
+.stat-value { font-size: 1.5rem; font-weight: 700; }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+th, td { text-align: left; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--border); }
+th { color: var(--muted); font-weight: 600; }

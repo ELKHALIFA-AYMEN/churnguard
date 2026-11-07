@@ -9,3 +9,7 @@ export const ROLE_LABELS: Record<Role, string> = {
 export function canWrite(role: Role): boolean {
   return role === 'ADMIN' || role === 'ANALYST'
 }
+
+export function isAdmin(role: Role): boolean {
+  return role === 'ADMIN'
+}

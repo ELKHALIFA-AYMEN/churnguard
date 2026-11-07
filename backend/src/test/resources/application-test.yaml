@@ -9,6 +9,8 @@ app:
     jwt:
       secret: secret-de-test-uniquement-pas-pour-la-production-0123456789
       expiration-minutes: 5
+    login-rate-limit:
+      max-attempts: 1000
   ml:
     base-url: http://localhost:9
     token: jeton-ml-de-test-uniquement-pas-pour-la-production-0123456789

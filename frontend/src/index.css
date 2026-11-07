@@ -67,3 +67,13 @@ button.secondary { margin: 0 0 0 auto; padding: 0.4rem 0.8rem; font-size: 0.9rem
 table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
 th, td { text-align: left; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--border); }
 th { color: var(--muted); font-weight: 600; }
+
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.risk { display: flex; align-items: center; gap: 0.6rem; min-width: 150px; }
+.risk-value { width: 3rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.risk-track { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.risk-fill { display: block; height: 100%; background: var(--danger); }
+
+.pager { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1rem; }
+.pager button { margin: 0; }

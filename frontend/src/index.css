@@ -77,3 +77,8 @@ th { color: var(--muted); font-weight: 600; }
 
 .pager { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1rem; }
 .pager button { margin: 0; }
+
+.factors { list-style: none; padding: 0; margin: 0; }
+.factors li { display: flex; align-items: center; gap: 1rem; padding: 0.4rem 0; }
+.factor-name { width: 14rem; }
+.factors .risk-track { flex: 1; }

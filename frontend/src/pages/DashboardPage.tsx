@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { api } from '../api/client'
 import type { Page, Prediction } from '../api/types'
+import { Link } from 'react-router-dom'
 
 const PAGE_SIZE = 20
 
@@ -87,7 +88,7 @@ export default function DashboardPage() {
             <tbody>
               {data.content.map((prediction) => (
                 <tr key={prediction.customerId}>
-                  <td>{prediction.externalId}</td>
+                  <td><Link to={`/clients/${prediction.customerId}`}>{prediction.externalId}</Link></td>
                   <td>{CONTRACT_LABELS[prediction.contract] ?? prediction.contract}</td>
                   <td>{prediction.tenureMonths} mois</td>
                   <td>{amount.format(prediction.monthlyCharges)}</td>

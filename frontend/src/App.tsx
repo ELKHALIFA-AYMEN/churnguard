@@ -4,6 +4,7 @@ import AppLayout from './layout/AppLayout'
 import DashboardPage from './pages/DashboardPage'
 import DataPage from './pages/DataPage'
 import LoginPage from './pages/LoginPage'
+import CustomerPage from './pages/CustomerPage'
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
         <Route element={<AppLayout />}>
           <Route path="/" element={<DashboardPage />} />
           <Route path="/data" element={<DataPage />} />
+          <Route path="clients/:customerId" element={<CustomerPage />} />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />

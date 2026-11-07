@@ -8,6 +8,15 @@ Plateforme SaaS multi-organisations qui **prédit quels clients risquent de part
 Projet personnel de bout en bout : API Java sécurisée, service de machine learning, interface React, base PostgreSQL, conteneurs et intégration continue.
 
 
+## Aperçu
+
+| | |
+|---|---|
+| ![Connexion](docs/img/01-connexion.png) | ![Import et calcul](docs/img/02-donnees.png) |
+| *Connexion* | *Import des clients et lancement du calcul* |
+| ![Tableau de bord](docs/img/03-tableau-de-bord.png) | ![Fiche client](docs/img/04-fiche-client.png) |
+| *Clients à risque, du plus au moins risqué* | *Fiche client : ce qui augmente le risque, ce qui rassure* |
+
 ## Ce que fait ChurnGuard
 
 1. Une organisation s'inscrit et obtient un administrateur.

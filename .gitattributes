@@ -1,0 +1,11 @@
+# Fins de ligne : LF partout, sauf les scripts Windows qui exigent CRLF.
+* text=auto eol=lf
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# Fichiers binaires : Git ne les modifie jamais.
+*.png binary
+*.jpg binary
+*.jar binary
+*.joblib binary
+*.pkl binary

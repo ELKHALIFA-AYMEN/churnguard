@@ -105,7 +105,7 @@ Ce sont des mesures techniques qui facilitent la conformité au RGPD ; elles ne 
 
 ## Lancer le projet
 
-Prérequis : Docker Desktop, Java 21, Git, VS Code avec l'extension *Dev Containers*. Python et Node s'exécutent dans le Dev Container fourni (`.devcontainer/`), ce qui garantit le même environnement pour tout le monde.
+Prérequis : Docker Desktop et Git. Pour entraîner le modèle (étape 2), VS Code avec l'extension *Dev Containers* : Python et Node s'exécutent dans le Dev Container fourni (`.devcontainer/`), ce qui garantit le même environnement pour tout le monde.
 
 **1. Créer le fichier de configuration.** Copier `.env.example` en `.env`, puis remplacer chaque `change_me...` par une valeur aléatoire longue. Exemple de génération (PowerShell) :
 
@@ -113,7 +113,7 @@ Prérequis : Docker Desktop, Java 21, Git, VS Code avec l'extension *Dev Contain
 $b = New-Object byte[] 48; [Security.Cryptography.RandomNumberGenerator]::Create().GetBytes($b); [Convert]::ToBase64String($b)
 ```
 
-**2. Entraîner le modèle.** Télécharger le jeu *Telco Customer Churn* (Kaggle) dans `data/raw/` (dossier ignoré par Git). Dans le Dev Container :
+**2. Entraîner le modèle.** Le modèle n'est volontairement pas versionné : cette étape est donc obligatoire avant tout lancement. Télécharger le jeu *Telco Customer Churn* (Kaggle) dans `data/raw/` (dossier ignoré par Git). Dans le Dev Container :
 
 ```bash
 cd ml-service
@@ -122,31 +122,20 @@ python -m app.training ../data/raw/<nom-du-fichier>.csv
 
 Le modèle est écrit dans `ml-service/models/` (ignoré par Git) et ses métriques dans `metrics.json`.
 
-**3. Démarrer la base et le service ML :**
+### Option A : tout lancer avec Docker
 
 ```bash
-docker compose up -d
+docker compose up -d --build
 ```
 
-**4. Démarrer le back-end** (les variables du fichier `.env` doivent être visibles du processus, par exemple dans la configuration de lancement de l'IDE) :
+Attendre environ une minute que les services soient prêts (`docker compose ps` doit afficher `healthy`). Le site est alors disponible sur http://localhost:3000. Seul ce port est exposé : le back-end n'est joignable qu'à travers le serveur web du front-end, qui relaie les appels `/api/`.
+
+Pour arrêter : `docker compose down` (les données sont conservées ; `docker compose down -v` les efface).
+
+**Créer l'organisation.** L'interface n'a pas de page d'inscription : la création passe par l'API (le mot de passe doit faire au moins 12 caractères).
 
 ```bash
-cd backend
-./mvnw spring-boot:run
-```
-
-**5. Démarrer le front-end** (dans le Dev Container) :
-
-```bash
-cd frontend
-npm ci
-npm run dev
-```
-
-**6. Créer l'organisation.** L'interface n'a pas de page d'inscription : la création passe par l'API (le mot de passe doit faire au moins 12 caractères).
-
-```bash
-curl -X POST http://localhost:8080/api/auth/register \
+curl -X POST http://localhost:3000/api/auth/register \
   -H "Content-Type: application/json" \
   -d '{"organizationName":"Mon organisation","email":"admin@example.com","password":"un-mot-de-passe-long"}'
 ```
@@ -154,10 +143,39 @@ curl -X POST http://localhost:8080/api/auth/register \
 Sous PowerShell, utiliser `curl.exe` et échapper les guillemets :
 
 ```powershell
-curl.exe -X POST http://localhost:8080/api/auth/register -H "Content-Type: application/json" -d "{\"organizationName\":\"Mon organisation\",\"email\":\"admin@example.com\",\"password\":\"un-mot-de-passe-long\"}"
+curl.exe -X POST http://localhost:3000/api/auth/register -H "Content-Type: application/json" -d "{\"organizationName\":\"Mon organisation\",\"email\":\"admin@example.com\",\"password\":\"un-mot-de-passe-long\"}"
 ```
 
-**7. Se connecter et essayer.** Ouvrir http://localhost:5173, se connecter avec cet e-mail, puis :
+### Option B : mode développement
+
+Utile pour modifier le code avec rechargement automatique. Prérequis supplémentaire : Java 21.
+
+**1. Démarrer la base et le service ML uniquement :**
+
+```bash
+docker compose up -d postgres ml-service
+```
+
+**2. Démarrer le back-end** (les variables du fichier `.env` doivent être visibles du processus, par exemple dans la configuration de lancement de l'IDE) :
+
+```bash
+cd backend
+./mvnw spring-boot:run
+```
+
+**3. Démarrer le front-end** (dans le Dev Container) :
+
+```bash
+cd frontend
+npm ci
+npm run dev
+```
+
+**4. Créer l'organisation** avec les mêmes commandes que ci-dessus, en remplaçant `localhost:3000` par `localhost:8080`. Le site est sur http://localhost:5173.
+
+### Essayer l'application
+
+Ouvrir le site (http://localhost:3000, ou :5173 en mode développement), se connecter avec l'e-mail choisi, puis :
 
 1. page **Données** : importer le fichier CSV, puis lancer le calcul ;
 2. page **Tableau de bord** : parcourir les clients à risque et ouvrir une fiche.

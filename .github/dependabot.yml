@@ -12,12 +12,20 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    ignore:
+      # Le modèle est entraîné avec pandas 2 : passer à pandas 3 se planifie avec un réentraînement.
+      - dependency-name: "pandas"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: npm
     directory: /frontend
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    ignore:
+      # Les types doivent suivre la version de Node réellement utilisée (24).
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: docker
     directory: /ml-service

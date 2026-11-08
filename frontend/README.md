@@ -1,32 +1,37 @@
-# React + TypeScript + Vite
+# ChurnGuard : interface web
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Application React + TypeScript construite avec Vite. Elle consomme l'API du back-end (`/api/...`).
 
-Currently, two official plugins are available:
+## Commandes
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+À lancer dans ce dossier (dans le Dev Container) :
 
-## React Compiler
+| Commande | Rôle |
+|---|---|
+| `npm ci` | Installe les dépendances exactement comme dans `package-lock.json` |
+| `npm run dev` | Serveur de développement sur http://localhost:5173 |
+| `npm run test` | Tests (Vitest et Testing Library) |
+| `npm run lint` | Vérification ESLint |
+| `npm run build` | Vérification des types et construction pour la production |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+En développement, le proxy de `vite.config.ts` redirige `/api` vers le back-end (`http://host.docker.internal:8080`) : le navigateur ne parle qu'à une seule origine, sans configuration CORS ouverte.
 
-## Expanding the Oxlint configuration
+## Organisation de `src/`
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+| Dossier | Contenu |
+|---|---|
+| `api/` | Client HTTP (`client.ts`) et types partagés avec l'API |
+| `auth/` | Session, contexte d'authentification, protection des routes, rôles |
+| `layout/` | Barre de navigation et mise en page commune |
+| `pages/` | Connexion, tableau de bord, fiche client, import des données |
+| `test/` | Configuration des tests et données de test |
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+## Choix de sécurité côté navigateur
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+- Le client d'API n'accepte que des chemins `/api/...` : le jeton ne peut pas être envoyé vers un autre site.
+- Le jeton est conservé dans `sessionStorage` (effacé à la fermeture de l'onglet). Un cookie `HttpOnly` serait plus robuste face aux failles XSS ; le compromis est assumé.
+- Une expiration ou une réponse 401 déconnecte automatiquement l'utilisateur.
+- L'interface masque les actions interdites au rôle de l'utilisateur, par confort. **La vraie protection est côté serveur**, et elle est testée.
+- Les messages d'erreur affichés sont écrits en dur : aucun texte venant du serveur n'est injecté tel quel dans la page.
+
+Le contexte complet du projet est dans le [README principal](../README.md).
